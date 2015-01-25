@@ -4,32 +4,29 @@ then
 echo "REQUIRES ROOT, please run: sudo install_ompl.sh"
 exit 0
 else
-#Install Boost, CMake, Python, PyQt4, PyOpenGL, and pkg-config
+echo "1. INSTALLING: Boost, CMake, Python, PyQt4, PyOpenGL, and pkg-config"
 sudo apt-get install libboost-all-dev cmake python-dev python-qt4-dev python-qt4-gl python-opengl freeglut3-dev libassimp-dev
 
-#Install DOxygen, GraphViz, and ODE
+echo"2. INSTALLING: DOxygen, GraphViz, and ODE"
 sudo apt-get install doxygen graphviz libode-dev
 
-#Assuming you are in the omlapp directory
+echo "3. PERFORMING: CMake build - Assuming you are in the omlapp directory"
 mkdir -p build/Release
 cd build/Release
 cmake ../..
 
-#If you want Python bindings or a GUI, type the following two commands:
-make installpyplusplus && cmake . # download & install Py++
-make update_bindings
+echo "4. INSTALLING: Py++ for Python bindings and GUI"
+make installpyplusplus && cmake .
+make update_bindings && make
 
-#Compile OMPL.app
+echo "5. COMPILING: OMPL.app"
 make
 
-#Run the test programs
+echo "6. COMPILING: test - Run the test programs"
 make test
 
-#Generate documentation
+echo "7. COMPILING: doc - Generate documentation"
 make doc
 
-#Install the library
+echo "8. INSTALLING the library"
 sudo make install
-
-
-
